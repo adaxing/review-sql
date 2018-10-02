@@ -7,7 +7,7 @@ SELECT name
         WHERE population >
             (SELECT population 
                 FROM world
-                    WHERE name='Russia')
+                    WHERE name='Russia');
 
 --2. Show the countries in Europe with a per capita GDP greater than 'United Kingdom'.
 
@@ -17,7 +17,7 @@ SELECT name
             (gdp/population) > 
                 (SELECT gdp/population 
                     FROM world 
-                        WHERE name= 'United Kingdom')
+                        WHERE name= 'United Kingdom');
 
 --3. List the name and continent of countries in the continents containing either Argentina or Australia. Order by name of the country.
 SELECT name, continent 
@@ -39,7 +39,7 @@ SELECT name, population
             population <
                 (SELECT population 
                     FROM world 
-                        WHERE name='Poland')
+                        WHERE name='Poland');
 
 --5. Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
 SELECT name, CONCAT(
@@ -58,7 +58,7 @@ SELECT name
             SELECT gdp 
                 FROM  world
                     WHERE continent = 'Europe' AND 
-                        gdp >0)
+                        gdp >0);
 
 --7. Find the largest country (by area) in each continent, show the continent, the name and the area:
 --correlated or synchronized sub-query.
@@ -68,7 +68,7 @@ SELECT continent, name, area
             (SELECT area 
                 FROM world y
                     WHERE y.continent=x.continent AND 
-                        area>0)
+                        area>0);
 
 --8. List each continent and the name of the country that comes first alphabetically.
 SELECT continent, name 
@@ -77,7 +77,7 @@ SELECT continent, name
             ALL (
                 SELECT name 
                     FROM world y 
-                        WHERE  x.continent = y.continent)
+                        WHERE  x.continent = y.continent);
 
 --9. Find the continents where all countries have a population <= 25000000. Then find the names of the countries associated with these continents. Show name, continent and population.
 SELECT name, continent, population
@@ -88,7 +88,7 @@ SELECT name, continent, population
                     WHERE 25000000 >= ALL(
                         SELECT population 
                             FROM world y 
-                                WHERE x.continent = y.continent))
+                                WHERE x.continent = y.continent));
 
 --10. Some countries have populations more than three times that of any of their neighbours (in the same continent). Give the countries and continents.
 SELECT name, continent 
@@ -98,4 +98,4 @@ SELECT name, continent
                 FROM world y 
                     WHERE x.continent = y.continent AND 
                         x.name<> y.name AND 
-                        population> 0)
+                        population> 0);
